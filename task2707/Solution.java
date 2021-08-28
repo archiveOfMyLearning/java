@@ -16,7 +16,7 @@ public class Solution {
     }
 
 
-    public static boolean isLockOrderNormal(final Solution solution, final Object o1, final Object o2) throws Exception {
+    public static boolean isLockOrderNormal(final Solution solution, final Object o1, final Object o2) {
         AtomicBoolean o2Captured = new AtomicBoolean(false);
         synchronized (o1){
             Thread testedMethodThread = new Thread(()->solution.someMethodWithSynchronizedBlocks(o1,o2));
