@@ -17,20 +17,20 @@ public class Solution {
 
 
     public static boolean isLockOrderNormal(final Solution solution, final Object o1, final Object o2) {
-        AtomicBoolean o2Captured = new AtomicBoolean(false);
+        AtomicBoolean o2Locked = new AtomicBoolean(false);
         synchronized (o1){
             Thread testedMethodThread = new Thread(()->solution.someMethodWithSynchronizedBlocks(o1,o2));
             testedMethodThread.start();
             while (testedMethodThread.getState()!= Thread.State.BLOCKED);
             Thread o2Locker = new Thread(()->{
                 synchronized (o2){
-                    o2Captured.set(true);
+                    o2Locked.set(true);
                     synchronized (o1){}
                 }
             });
             o2Locker.start();
             while (o2Locker.getState()!= Thread.State.BLOCKED);
-            return o2Captured.get();
+            return o2Locked.get();
         }
     }
 
