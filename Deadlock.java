@@ -1,5 +1,5 @@
 package com.example;
-
+//guaranteed deadlock, without using Thread.sleep()
 public class Deadlock {
     public static void main(String[] args) {
         Object outerLock = new Object();
