@@ -18,7 +18,6 @@ public class Solution {
 
     public static boolean isLockOrderNormal(final Solution solution, final Object o1, final Object o2) throws Exception {
         AtomicBoolean o2Captured = new AtomicBoolean(false);
-        boolean result;
         synchronized (o1){
             Thread testedMethodThread = new Thread(()->solution.someMethodWithSynchronizedBlocks(o1,o2));
             testedMethodThread.start();
@@ -31,9 +30,8 @@ public class Solution {
             });
             o2Locker.start();
             while (o2Locker.getState()!= Thread.State.BLOCKED);
-            result = o2Captured.get();
+            return o2Captured.get();
         }
-        return result;
     }
 
     public static void main(String[] args) throws Exception {
