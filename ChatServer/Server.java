@@ -37,7 +37,7 @@ public class Server {
         public void run(){
             try {
                 clientThreads.put(clientId, this);
-                messageQueue.put(new Message("System: ",clientId + " connected"));
+                messageQueue.put(new Message("System",clientId + " connected"));
                 while (true) {
                     if (reader.ready()) {
                         String msgText = reader.readLine();
@@ -48,7 +48,7 @@ public class Server {
                 }
                 clientThreads.remove(clientId);
                 socket.close();
-                messageQueue.put(new Message("System: ",clientId + " disconnected"));
+                messageQueue.put(new Message("System",clientId + " disconnected"));
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
