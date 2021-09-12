@@ -13,15 +13,17 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Server {
-    private record Message (String clientId, String text){}
-
     private static BlockingQueue<Message> messageQueue = new LinkedBlockingQueue<>();
     private static Map<String,ClientConnection> clientThreads = new ConcurrentHashMap<>();
+    
+    private record Message (String clientId, String text){}
+    
     private static class ClientConnection extends Thread{
         Socket socket;
         PrintWriter writer;
         BufferedReader reader;
         String clientId;
+        
         public ClientConnection(Socket socket) {
             try{
                 this.socket = socket;
@@ -31,8 +33,8 @@ public class Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
+        
         @Override
         public void run(){
             try {
