@@ -12,10 +12,12 @@ public class Client extends Thread {
 
     private final PrintWriter writer;
     private final BufferedReader reader;
+    
     public Client(Socket socket) throws IOException {
         writer = new PrintWriter(socket.getOutputStream(), true);
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
+    
     @Override
     public void run(){
         Thread consoleReader = new Thread(()->{
@@ -41,7 +43,6 @@ public class Client extends Thread {
                 e.printStackTrace();
             }
         });
-        serverListener.setDaemon(true);
         serverListener.start();
     }
 
