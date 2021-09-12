@@ -38,13 +38,11 @@ public class Server {
             try {
                 clientThreads.put(clientId, this);
                 messageQueue.put(new Message("System",clientId + " connected"));
-                while (true) {
-                    if (reader.ready()) {
-                        String msgText = reader.readLine();
-                        messageQueue.put(new Message(clientId, msgText));
-                        if ("quit".equals(msgText)) break;
-                    }
-                    Thread.sleep(100);
+                int i =0;
+                String msgText;
+                while ((msgText = reader.readLine())!=null) {
+                    messageQueue.put(new Message(clientId, msgText));
+                    if ("quit".equals(msgText)) break;
                 }
                 clientThreads.remove(clientId);
                 socket.close();
@@ -55,8 +53,8 @@ public class Server {
         }
     }
 
-
     private static final int PORT = 999;
+    
     public static void main(String[] args) {
         System.out.println("===MVP char server===");
         Thread lobby = new Thread(()->{
@@ -85,9 +83,6 @@ public class Server {
 
         });
         broadcaster.start();
-
-
     }
-
-
+    
 }
