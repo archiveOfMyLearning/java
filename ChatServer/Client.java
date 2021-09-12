@@ -34,12 +34,11 @@ public class Client extends Thread {
         consoleReader.start();
 
         Thread serverListener = new Thread(()->{
-            while (true) {
-                try {
-                    if (reader.ready()) System.out.println(reader.readLine());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            String msg;
+            try {
+                while ((msg=reader.readLine())!=null) {System.out.println(msg);}
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
         serverListener.setDaemon(true);
