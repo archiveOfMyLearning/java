@@ -82,7 +82,6 @@ public class Server {
                     e.printStackTrace();
                 }
             }
-
         });
         broadcaster.start();
     }
